@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>土傳振動對 IC 廠振動評估流程</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Microsoft JhengHei", "Segoe UI", sans-serif;
+            background: #f0f4f8;
+            color: #2d3748;
+            line-height: 1.8;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Main */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Intro */
+        .intro {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .intro h2 {
+            color: #1a365d;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            border-left: 4px solid #2b6cb0;
+            padding-left: 12px;
+        }
+        .intro p {
+            margin-bottom: 0.8rem;
+            text-align: justify;
+        }
+
+        /* Flowchart */
+        .flow-section {
+            margin-bottom: 2rem;
+        }
+        .flow-section > h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #1a365d;
+            margin-bottom: 1.5rem;
+        }
+
+        .flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+
+        .flow-step {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            width: 100%;
+            max-width: 720px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: relative;
+            border-left: 5px solid #2b6cb0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .flow-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+
+        .step-number {
+            display: inline-block;
+            background: #2b6cb0;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            margin-right: 10px;
+        }
+
+        .flow-step h3 {
+            display: inline;
+            font-size: 1.15rem;
+            color: #1a365d;
+        }
+
+        .step-content {
+            margin-top: 0.8rem;
+            padding-left: 42px;
+        }
+        .step-content ul {
+            list-style: none;
+            padding: 0;
+        }
+        .step-content li {
+            padding: 3px 0;
+            position: relative;
+            padding-left: 20px;
+        }
+        .step-content li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #2b6cb0;
+            font-weight: bold;
+        }
+
+        .arrow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 40px;
+            color: #2b6cb0;
+            font-size: 1.8rem;
+        }
+
+        /* Decision */
+        .flow-decision {
+            background: #ebf8ff;
+            border: 2px dashed #2b6cb0;
+            border-radius: 12px;
+            padding: 1.2rem 2rem;
+            width: 100%;
+            max-width: 720px;
+            text-align: center;
+            position: relative;
+        }
+        .flow-decision h3 {
+            color: #2b6cb0;
+            font-size: 1.1rem;
+        }
+        .decision-branches {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 0.8rem;
+            flex-wrap: wrap;
+        }
+        .branch {
+            padding: 0.5rem 1.2rem;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+        .branch-yes {
+            background: #c6f6d5;
+            color: #276749;
+        }
+        .branch-no {
+            background: #fed7d7;
+            color: #9b2c2c;
+        }
+
+        /* Criteria Table */
+        .criteria-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .criteria-section h2 {
+            color: #1a365d;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            border-left: 4px solid #2b6cb0;
+            padding-left: 12px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+        th {
+            background: #2b6cb0;
+            color: white;
+            padding: 12px 16px;
+            text-align: center;
+        }
+        td {
+            padding: 10px 16px;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: center;
+        }
+        tr:nth-child(even) { background: #f7fafc; }
+        tr:hover { background: #ebf8ff; }
+
+        /* Key Points */
+        .key-points {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .key-points h2 {
+            color: #1a365d;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            border-left: 4px solid #2b6cb0;
+            padding-left: 12px;
+        }
+        .point-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        .point-card {
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 1.2rem;
+            border: 1px solid #e2e8f0;
+        }
+        .point-card h4 {
+            color: #2b6cb0;
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #718096;
+            font-size: 0.9rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.4rem; }
+            .flow-step { padding: 1rem 1.2rem; }
+            .step-content { padding-left: 0; }
+            th, td { padding: 8px 6px; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>土傳振動對 IC 廠振動評估流程</h1>
+    <p>Ground-Borne Vibration Assessment for IC Fabrication Facilities</p>
+</header>
+
+<div class="container">
+
+    <!-- 簡介 -->
+    <div class="intro">
+        <h2>為什麼需要振動評估？</h2>
+        <p>IC 晶圓廠的製程設備（如光刻機、電子顯微鏡等）對環境振動極為敏感，微小的振動即可能影響製程良率。土傳振動來源包括：鄰近道路交通、鐵路運行、營建施工、工廠機械等。</p>
+        <p>在廠房選址、設計與營運階段，均需進行系統性的振動評估，以確保廠內振動環境符合設備商規範及國際標準。</p>
+    </div>
+
+    <!-- 評估流程 -->
+    <div class="flow-section">
+        <h2>評估流程</h2>
+        <div class="flow">
+
+            <div class="flow-step">
+                <span class="step-number">1</span>
+                <h3>振動源調查與識別</h3>
+                <div class="step-content">
+                    <ul>
+                        <li>調查廠址周邊振動源（交通、鐵路、施工、既有工廠）</li>
+                        <li>識別振動傳遞路徑與地質條件</li>
+                        <li>蒐集土層資料與地質鑽探報告</li>
+                        <li>確認未來可能新增之振動源</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="arrow">&#9660;</div>
+
+            <div class="flow-step">
+                <span class="step-number">2</span>
+                <h3>現場振動量測</h3>
+                <div class="step-content">
+                    <ul>
+                        <li>於廠址進行背景振動量測（至少 24 小時連續監測）</li>
+                        <li>量測項目：速度振動位準（dB ref 1 micro-in/sec）</li>
+                        <li>量測方向：垂直向（V）及兩水平向（H1、H2）</li>
+                        <li>分析頻率範圍：1～80 Hz（1/3 八音度頻帶）</li>
+                        <li>記錄量測期間之振動源活動狀態</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="arrow">&#9660;</div>
+
+            <div class="flow-step">
+                <span class="step-number">3</span>
+                <h3>振動規範與標準確認</h3>
+                <div class="step-content">
+                    <ul>
+                        <li>確認設備商振動容許規範</li>
+                        <li>參照國際通用標準（如 IEST、BBN / VC Curves）</li>
+                        <li>依製程需求選定適用之 VC 等級</li>
+                        <li>確認業主額外要求或安全係數</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="arrow">&#9660;</div>
+
+            <div class="flow-decision">
+                <h3>判定：現況振動是否符合規範？</h3>
+                <div class="decision-branches">
+                    <div class="branch branch-yes">符合 → 進入步驟 5</div>
+                    <div class="branch branch-no">不符合 → 進入步驟 4</div>
+                </div>
+            </div>
+
+            <div class="arrow">&#9660;</div>
+
+            <div class="flow-step">
+                <span class="step-number">4</span>
+                <h3>減振對策研擬</h3>
+                <div class="step-content">
+                    <ul>
+                        <li><strong>振動源端：</strong>設置隔振溝、減速帶調整、施工工法限制</li>
+                        <li><strong>傳遞路徑：</strong>開挖隔振溝渠、地盤改良、設置屏障</li>
+                        <li><strong>受振端：</strong>基礎隔振設計、浮動地板、設備隔振台座</li>
+                        <li>進行減振方案之數值模擬與效益評估</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="arrow">&#9660;</div>
+
+            <div class="flow-step">
+                <span class="step-number">5</span>
+                <h3>數值模擬與預測分析</h3>
+                <div class="step-content">
+                    <ul>
+                        <li>建立有限元素模型（FEM）或邊界元素模型（BEM）</li>
+                        <li>模擬振動由振動源經土層傳遞至廠房結構之行為</li>
+                        <li>預測廠房各樓層、各區位之振動位準</li>
+                        <li>評估結構設計對振動傳遞之影響</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="arrow">&#9660;</div>
+
+            <div class="flow-decision">
+                <h3>判定：預測結果是否符合規範？</h3>
+                <div class="decision-branches">
+                    <div class="branch branch-yes">符合 → 進入步驟 6</div>
+                    <div class="branch branch-no">不符合 → 回到步驟 4 調整對策</div>
+                </div>
+            </div>
+
+            <div class="arrow">&#9660;</div>
+
+            <div class="flow-step">
+                <span class="step-number">6</span>
+                <h3>施工階段振動監測</h3>
+                <div class="step-content">
+                    <ul>
+                        <li>營建期間持續監測振動，確保不超過容許值</li>
+                        <li>監控打樁、開挖等高振動作業之影響</li>
+                        <li>即時預警機制：超標時立即通報與調整工法</li>
+                        <li>記錄施工振動數據作為竣工驗證參考</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="arrow">&#9660;</div>
+
+            <div class="flow-step">
+                <span class="step-number">7</span>
+                <h3>竣工驗證與長期監測</h3>
+                <div class="step-content">
+                    <ul>
+                        <li>廠房完工後進行竣工振動量測</li>
+                        <li>比對實測值與設計預測值</li>
+                        <li>確認所有敏感區域均符合 VC 規範</li>
+                        <li>建立長期振動監測系統，持續追蹤環境變化</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- VC 規範表 -->
+    <div class="criteria-section">
+        <h2>VC 振動規範等級（BBN / IEST-RP-CC012）</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>等級</th>
+                    <th>速度振動位準<br>(μm/s)</th>
+                    <th>速度振動位準<br>(μin/s)</th>
+                    <th>適用設備 / 環境</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>VC-A</strong></td>
+                    <td>50</td>
+                    <td>2,000</td>
+                    <td>光學顯微鏡（400X）、精密天平</td>
+                </tr>
+                <tr>
+                    <td><strong>VC-B</strong></td>
+                    <td>25</td>
+                    <td>1,000</td>
+                    <td>高精度檢測設備、光學比較儀</td>
+                </tr>
+                <tr>
+                    <td><strong>VC-C</strong></td>
+                    <td>12.5</td>
+                    <td>500</td>
+                    <td>掃描式電子顯微鏡（SEM）、光刻機</td>
+                </tr>
+                <tr>
+                    <td><strong>VC-D</strong></td>
+                    <td>6.25</td>
+                    <td>250</td>
+                    <td>高階光刻機、電子束檢測系統</td>
+                </tr>
+                <tr>
+                    <td><strong>VC-E</strong></td>
+                    <td>3.12</td>
+                    <td>125</td>
+                    <td>最敏感之奈米製程設備</td>
+                </tr>
+                <tr>
+                    <td><strong>VC-F</strong></td>
+                    <td>1.56</td>
+                    <td>62.5</td>
+                    <td>極端敏感之研究設備</td>
+                </tr>
+                <tr>
+                    <td><strong>VC-G</strong></td>
+                    <td>0.78</td>
+                    <td>31.3</td>
+                    <td>極限等級，特殊研究用途</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="margin-top: 1rem; font-size: 0.9rem; color: #718096;">
+            ※ 上表為 1/3 八音度頻帶（1～80 Hz）之容許振動速度值。實際適用等級需依設備商規範及製程需求確認。
+        </p>
+    </div>
+
+    <!-- 關鍵要點 -->
+    <div class="key-points">
+        <h2>評估關鍵要點</h2>
+        <div class="point-grid">
+            <div class="point-card">
+                <h4>量測時機</h4>
+                <p>應涵蓋日間與夜間、平日與假日，以掌握不同時段之振動特性變化。</p>
+            </div>
+            <div class="point-card">
+                <h4>頻率範圍</h4>
+                <p>重點分析 1～80 Hz，其中 4～50 Hz 為多數精密設備最敏感之頻率範圍。</p>
+            </div>
+            <div class="point-card">
+                <h4>方向性</h4>
+                <p>需同時量測垂直向與兩個水平向振動，部分設備對水平振動更為敏感。</p>
+            </div>
+            <div class="point-card">
+                <h4>安全餘裕</h4>
+                <p>建議預留 6～10 dB 的安全餘裕，以因應未來環境變化及量測不確定性。</p>
+            </div>
+            <div class="point-card">
+                <h4>地質影響</h4>
+                <p>軟弱地層會放大低頻振動，岩盤則有利於高頻衰減，需納入地質條件評估。</p>
+            </div>
+            <div class="point-card">
+                <h4>結構互制</h4>
+                <p>廠房結構會改變振動傳遞特性，樓層越高通常振動越大，需進行結構動力分析。</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>土傳振動對 IC 廠振動評估流程 | Ground-Borne Vibration Assessment for IC Fabs</p>
+</footer>
+
+</body>
+</html>
