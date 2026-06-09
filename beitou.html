@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>北投初夏漫遊 · 2026.05.23</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif; }
+    .font-serif { font-family: 'Noto Serif TC', serif; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .sub-tab-content { display: none; }
+    .sub-tab-content.active { display: block; }
+    .fade-in { animation: fadeInUp 0.4s ease both; }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .chat-drawer { display: none; }
+    .chat-drawer.open { display: flex; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+    .animate-pulse { animation: pulse 2s cubic-bezier(.4,0,.6,1) infinite; }
+    .animate-spin { animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body class="min-h-screen bg-stone-50 text-gray-800 antialiased">
+
+<!-- ======= HERO ======= -->
+<header class="relative min-h-[580px] flex items-center justify-center overflow-hidden shadow-2xl">
+  <div class="absolute inset-0">
+    <div class="absolute inset-0 bg-gradient-to-b from-rose-700/70 to-green-900/90 z-10"></div>
+    <img src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&q=80&w=2000"
+         alt="北投" class="w-full h-full object-cover">
+  </div>
+  <div class="relative z-20 text-center px-4 text-white">
+    <div class="bg-white/20 backdrop-blur-md inline-block px-6 py-1.5 rounded-full text-xs font-semibold mb-6 border border-white/30 shadow-lg">
+      2026.05.23 (六) · 全日漫遊
+    </div>
+    <h1 class="text-5xl md:text-7xl font-black mb-6 drop-shadow-2xl">北投初夏漫遊</h1>
+    <p class="text-xl md:text-2xl opacity-95 font-light tracking-[0.15em] font-serif italic mb-10">
+      綠意 · 美食 · 靈性 · 生命迴響
+    </p>
+    <div class="flex flex-col items-center gap-4">
+      <a href="https://forms.office.com/r/zeHbmgjGgM" target="_blank" rel="noopener noreferrer"
+         class="w-full sm:w-64 bg-orange-600 hover:bg-orange-700 text-white px-8 py-3.5 rounded-full font-black shadow-xl transition-all transform hover:scale-105 flex items-center justify-center gap-2 tracking-widest no-underline">
+        ✨ 立即報名
+      </a>
+      <button onclick="openChat()"
+              class="w-full sm:w-64 bg-white/10 backdrop-blur-md border border-white/40 hover:bg-white/25 text-white px-8 py-2.5 rounded-full text-sm font-bold transition-all tracking-[0.2em] shadow-lg flex items-center justify-center gap-2">
+        💬 智能小助手諮詢 ›
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ======= MAIN ======= -->
+<main class="max-w-4xl mx-auto px-4 py-12 -mt-12 relative z-30">
+
+  <!-- Summary Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+    <div class="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-white/50 flex items-start space-x-4">
+      <div class="bg-rose-100 p-3 rounded-2xl text-rose-500 flex-shrink-0">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-lg mb-1">活動日期</h3>
+        <p class="text-gray-600 text-sm">2026年5月23日 (週六)</p>
+        <p class="text-gray-400 text-xs mt-1 tracking-widest italic opacity-60">10:00 - 16:30</p>
+      </div>
+    </div>
+    <div class="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-white/50 flex items-start space-x-4">
+      <div class="bg-emerald-100 p-3 rounded-2xl text-emerald-600 flex-shrink-0">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+      </div>
+      <div class="flex-1">
+        <h3 class="font-bold text-lg mb-1">漫遊亮點</h3>
+        <p class="text-gray-600 text-xs">放電串連、光陰故事與重劃區生態</p>
+        <button onclick="setTab('explore'); setSubTab('kids')"
+                class="inline-flex items-center mt-2 text-emerald-600 text-xs font-bold hover:underline">
+          查看放電路線 →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="flex flex-wrap justify-center gap-2 mb-10 bg-stone-200/50 p-1.5 rounded-[2.5rem] w-fit mx-auto backdrop-blur-md shadow-inner overflow-x-auto">
+    <button id="tab-btn-schedule"  onclick="setTab('schedule')"  class="tab-btn active-tab px-5 md:px-8 py-2.5 rounded-full text-xs md:text-sm font-bold transition-all duration-300">漫遊路徑</button>
+    <button id="tab-btn-explore"   onclick="setTab('explore')"   class="tab-btn px-5 md:px-8 py-2.5 rounded-full text-xs md:text-sm font-bold transition-all duration-300">北投探索趣</button>
+    <button id="tab-btn-menu"      onclick="setTab('menu')"      class="tab-btn px-5 md:px-8 py-2.5 rounded-full text-xs md:text-sm font-bold transition-all duration-300">午餐饗宴</button>
+    <button id="tab-btn-spiritual" onclick="setTab('spiritual')" class="tab-btn px-5 md:px-8 py-2.5 rounded-full text-xs md:text-sm font-bold transition-all duration-300">心靈輕旅行</button>
+    <button id="tab-btn-eco"       onclick="setTab('eco')"       class="tab-btn px-5 md:px-8 py-2.5 rounded-full text-xs md:text-sm font-bold transition-all duration-300">生態社區巡禮</button>
+  </div>
+
+  <!-- ── SCHEDULE ── -->
+  <div id="tab-schedule" class="tab-content active fade-in min-h-[400px]">
+    <div class="space-y-6">
+
+      <div class="bg-white rounded-3xl overflow-hidden shadow-lg border border-stone-100 group transition-all p-6 flex items-start">
+        <div class="flex flex-col items-center mr-6">
+          <div class="text-emerald-600 font-black text-lg mb-2">10:00</div>
+          <div class="w-0.5 h-8 bg-stone-100"></div>
+        </div>
+        <div class="bg-stone-50 p-4 rounded-2xl flex-shrink-0 text-emerald-500 mr-4 self-start group-hover:bg-emerald-500 group-hover:text-white transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </div>
+        <div class="flex-1">
+          <h4 class="text-xl font-bold mb-1">集合出發</h4>
+          <p class="text-gray-500 leading-relaxed text-sm">捷運站直達，開啟北投秘境步道與「公園連連跳」的序曲</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl overflow-hidden shadow-lg border border-stone-100 group transition-all p-6 flex items-start">
+        <div class="flex flex-col items-center mr-6">
+          <div class="text-emerald-600 font-black text-lg mb-2">10:15</div>
+          <div class="w-0.5 h-8 bg-stone-100"></div>
+        </div>
+        <div class="bg-stone-50 p-4 rounded-2xl flex-shrink-0 text-emerald-500 mr-4 self-start group-hover:bg-emerald-500 group-hover:text-white transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+        </div>
+        <div class="flex-1">
+          <h4 class="text-xl font-bold mb-1">北投探索趣</h4>
+          <p class="text-gray-500 leading-relaxed text-sm">尋找山中鐵達尼號軍艦岩，或開啟孩子的公園大冒險</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl overflow-hidden shadow-lg border border-stone-100 group transition-all p-6 flex items-start">
+        <div class="flex flex-col items-center mr-6">
+          <div class="text-emerald-600 font-black text-lg mb-2">11:30</div>
+          <div class="w-0.5 h-8 bg-stone-100"></div>
+        </div>
+        <div class="bg-stone-50 p-4 rounded-2xl flex-shrink-0 text-emerald-500 mr-4 self-start group-hover:bg-emerald-500 group-hover:text-white transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+        </div>
+        <div class="flex-1">
+          <h4 class="text-xl font-bold mb-1">午餐饗宴</h4>
+          <p class="text-gray-500 leading-relaxed text-sm">前往對味廚房「銀光食驗室」，享用高品質職人料理</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl overflow-hidden shadow-lg border border-stone-100 group transition-all p-6 flex items-start">
+        <div class="flex flex-col items-center mr-6">
+          <div class="text-emerald-600 font-black text-lg mb-2">13:30</div>
+          <div class="w-0.5 h-8 bg-stone-100"></div>
+        </div>
+        <div class="bg-stone-50 p-4 rounded-2xl flex-shrink-0 text-emerald-500 mr-4 self-start group-hover:bg-emerald-500 group-hover:text-white transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+        </div>
+        <div class="flex-1">
+          <h4 class="text-xl font-bold mb-1">心靈輕旅行</h4>
+          <p class="text-gray-500 leading-relaxed text-sm">在自然共鳴中，來一場洗滌情緒的心靈 SPA</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl overflow-hidden shadow-lg border border-stone-100 group transition-all p-6 flex items-start">
+        <div class="flex flex-col items-center mr-6">
+          <div class="text-emerald-600 font-black text-lg mb-2">14:40</div>
+          <div class="w-0.5 h-8 bg-stone-100"></div>
+        </div>
+        <div class="bg-stone-50 p-4 rounded-2xl flex-shrink-0 text-emerald-500 mr-4 self-start group-hover:bg-emerald-500 group-hover:text-white transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+        </div>
+        <div class="flex-1">
+          <h4 class="text-xl font-bold mb-1">生態社區巡禮</h4>
+          <p class="text-gray-500 leading-relaxed text-sm">低密度開發區，享受樹比人多的舒適環境</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl overflow-hidden shadow-lg border border-stone-100 group transition-all p-6 flex items-start">
+        <div class="flex flex-col items-center mr-6">
+          <div class="text-emerald-600 font-black text-lg mb-2">16:30</div>
+        </div>
+        <div class="bg-stone-50 p-4 rounded-2xl flex-shrink-0 text-rose-400 mr-4 self-start group-hover:bg-rose-400 group-hover:text-white transition-all">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+        </div>
+        <div class="flex-1">
+          <h4 class="text-xl font-bold mb-1">賦歸</h4>
+          <p class="text-gray-500 leading-relaxed text-sm">帶著滿滿的共振回憶，平安踏上歸途</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── EXPLORE ── -->
+  <div id="tab-explore" class="tab-content min-h-[400px]">
+    <!-- Sub-tab buttons -->
+    <div class="flex justify-center gap-4 mb-8">
+      <button id="sub-btn-kids"    onclick="setSubTab('kids')"    class="sub-btn pb-2 px-3 text-sm font-bold border-b-2 transition-all">親子大放電</button>
+      <button id="sub-btn-hiking"  onclick="setSubTab('hiking')"  class="sub-btn pb-2 px-3 text-sm font-bold border-b-2 transition-all">踏青步道</button>
+      <button id="sub-btn-village" onclick="setSubTab('village')" class="sub-btn pb-2 px-3 text-sm font-bold border-b-2 transition-all">光陰的故事</button>
+    </div>
+
+    <!-- Kids -->
+    <div id="sub-kids" class="sub-tab-content active fade-in">
+      <div class="bg-white rounded-3xl overflow-hidden shadow-xl border border-stone-100 p-8">
+        <h2 class="text-3xl font-black text-orange-600 mb-6 italic">放電大串連</h2>
+        <p class="text-gray-600 leading-relaxed mb-6">精心規劃「公園連連跳」路線：新北投站 ➔ 七虎公園 ➔ 長安公園 ➔ 奇岩一號公園 ➔ 銀光食驗室。</p>
+        <div class="w-full h-[450px] rounded-2xl overflow-hidden border border-stone-200 bg-stone-100 shadow-inner mb-8">
+          <iframe src="https://maps.google.com/maps?saddr=新北投捷運站&daddr=七虎公園+to:長安公園+to:奇岩一號公園+to:對味廚房銀光食驗室&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                  class="w-full h-full border-0" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+          <div class="group bg-stone-50 rounded-2xl overflow-hidden border border-stone-100 hover:shadow-lg transition-all">
+            <div class="h-44 overflow-hidden relative">
+              <img src="https://duk.tw/CKKXj6.png" alt="七虎公園" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            </div>
+            <div class="p-4">
+              <h4 class="font-bold text-gray-800 mb-1">🚀 七虎公園</h4>
+              <p class="text-[10px] text-emerald-600 font-bold mb-3">緊鄰七星公園 · 4.8 ⭐</p>
+              <p class="text-[11px] text-gray-500 leading-relaxed">2021年全新改造！原木攀爬天梯、彈跳床、歷史蒸汽火車頭。</p>
+              <div class="flex gap-1 mt-3 flex-wrap">
+                <span class="bg-emerald-50 text-emerald-700 text-[9px] px-2 py-0.5 rounded-full font-bold">彈跳床</span>
+                <span class="bg-emerald-50 text-emerald-700 text-[9px] px-2 py-0.5 rounded-full font-bold">磨石子滑梯</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="group bg-stone-50 rounded-2xl overflow-hidden border border-stone-100 hover:shadow-lg transition-all">
+            <div class="h-44 overflow-hidden relative">
+              <img src="https://duk.tw/pm0LzW.png" alt="長安公園" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            </div>
+            <div class="p-4">
+              <h4 class="font-bold text-gray-800 mb-1">🌊 長安公園</h4>
+              <p class="text-[10px] text-emerald-600 font-bold mb-3">育仁路109號 · 4.3 ⭐</p>
+              <p class="text-[11px] text-gray-500 leading-relaxed">復古木造車站風格，2022年升級加入滾輪溜滑梯、立式泰山溜索！</p>
+              <div class="flex gap-1 mt-3 flex-wrap">
+                <span class="bg-emerald-50 text-emerald-700 text-[9px] px-2 py-0.5 rounded-full font-bold">紅色小火車</span>
+                <span class="bg-emerald-50 text-emerald-700 text-[9px] px-2 py-0.5 rounded-full font-bold">泰山溜索</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="group bg-stone-50 rounded-2xl overflow-hidden border border-stone-100 hover:shadow-lg transition-all">
+            <div class="h-44 overflow-hidden relative">
+              <img src="https://duk.tw/tGtYJ0.png" alt="奇岩一號公園" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            </div>
+            <div class="p-4">
+              <h4 class="font-bold text-gray-800 mb-1">😊 奇岩一號公園</h4>
+              <p class="text-[10px] text-emerald-600 font-bold mb-3">奇岩重劃區 · 4.3 ⭐</p>
+              <p class="text-[11px] text-gray-500 leading-relaxed">橘灰藍 3D 攀岩。環湖木棧道超美，秋冬有夢幻落羽松倒影🌲</p>
+              <div class="flex gap-1 mt-3 flex-wrap">
+                <span class="bg-emerald-50 text-emerald-700 text-[9px] px-2 py-0.5 rounded-full font-bold">3D攀岩</span>
+                <span class="bg-emerald-50 text-emerald-700 text-[9px] px-2 py-0.5 rounded-full font-bold">落羽松步道</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Hiking -->
+    <div id="sub-hiking" class="sub-tab-content fade-in">
+      <div class="bg-white rounded-3xl overflow-hidden shadow-xl border border-stone-100 p-8">
+        <h2 class="text-3xl font-black text-orange-600 mb-6 italic">森之諧波：雙岩縱走</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+          <div class="p-6 bg-stone-50 rounded-2xl border border-stone-100">
+            <h4 class="font-bold text-lg mb-2">A路線｜石牌學術慢行</h4>
+            <div class="flex gap-3 mb-3 text-sm text-gray-500">
+              <span class="bg-white px-3 py-1 rounded-full shadow-sm font-bold text-emerald-600">4.2 km</span>
+              <span class="bg-white px-3 py-1 rounded-full shadow-sm font-bold text-emerald-600">70 min</span>
+            </div>
+            <div class="flex gap-2 mb-4">
+              <div class="w-20 h-14 rounded-lg overflow-hidden border-2 border-white shadow-sm">
+                <img src="https://duk.tw/CA1DZi.png" class="w-full h-full object-cover" alt="石牌站">
+              </div>
+              <div class="w-20 h-14 rounded-lg overflow-hidden border-2 border-white shadow-sm">
+                <img src="https://duk.tw/Yhxtaq.png" class="w-full h-full object-cover" alt="銀光食驗室">
+              </div>
+            </div>
+            <p class="text-sm text-gray-600 leading-relaxed mb-4">石牌站出發，穿越校園直攻軍艦岩。人文與自然和諧並存。</p>
+            <a href="https://maps.app.goo.gl/h393JsB125Vwzph1A" target="_blank"
+               class="inline-flex items-center text-emerald-600 font-bold text-sm no-underline hover:underline">
+              查看 Google Maps 導覽 ›
+            </a>
+          </div>
+
+          <div class="p-6 bg-stone-50 rounded-2xl border border-stone-100">
+            <h4 class="font-bold text-lg mb-2">B路線｜新北投反向登峰</h4>
+            <div class="flex gap-3 mb-3 text-sm text-gray-500">
+              <span class="bg-white px-3 py-1 rounded-full shadow-sm font-bold text-emerald-600">3.5 km</span>
+              <span class="bg-white px-3 py-1 rounded-full shadow-sm font-bold text-emerald-600">60 min</span>
+            </div>
+            <div class="flex gap-2 mb-4">
+              <div class="w-20 h-14 rounded-lg overflow-hidden border-2 border-white shadow-sm">
+                <img src="https://duk.tw/7g0XzV.png" class="w-full h-full object-cover" alt="新北投站">
+              </div>
+              <div class="w-20 h-14 rounded-lg overflow-hidden border-2 border-white shadow-sm">
+                <img src="https://duk.tw/Yhxtaq.png" class="w-full h-full object-cover" alt="銀光食驗室">
+              </div>
+            </div>
+            <p class="text-sm text-gray-600 leading-relaxed mb-4">新北投站出發，先訪丹鳳山，坡度適中，是效率最高的健行路徑。</p>
+            <a href="https://maps.app.goo.gl/1CjqthdrzXxMh63P7" target="_blank"
+               class="inline-flex items-center text-emerald-600 font-bold text-sm no-underline hover:underline">
+              查看 Google Maps 導覽 ›
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Village -->
+    <div id="sub-village" class="sub-tab-content fade-in">
+      <div class="bg-white rounded-3xl overflow-hidden shadow-xl border border-stone-100 p-8">
+        <h2 class="text-3xl font-black text-orange-600 mb-6 italic">光陰的故事</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+          <div class="space-y-6">
+            <p class="text-gray-600 leading-relaxed">中心新村曾是三軍總醫院的病患宿舍。在紅磚與日式建築間，聽見時光的迴響。</p>
+            <div class="grid grid-cols-1 gap-4">
+              <div class="flex gap-4 p-4 bg-stone-50 rounded-2xl border border-stone-100">
+                <div class="p-3 bg-white rounded-xl text-orange-500 shadow-sm flex-shrink-0">✨</div>
+                <div>
+                  <h4 class="font-bold text-sm">全台唯一溫泉澡堂</h4>
+                  <p class="text-xs text-gray-500">洗去戰後醫護人員的疲憊與歷史塵埃。</p>
+                </div>
+              </div>
+              <div class="flex gap-4 p-4 bg-stone-50 rounded-2xl border border-stone-100">
+                <div class="p-3 bg-white rounded-xl text-orange-500 shadow-sm flex-shrink-0">🏠</div>
+                <div>
+                  <h4 class="font-bold text-sm">醫護生活記憶館</h4>
+                  <p class="text-xs text-gray-500">每一塊紅磚都承載著白衣眷村的動人往事。</p>
+                </div>
+              </div>
+            </div>
+            <a href="https://www.beitouheartvillage.taipei/" target="_blank" rel="noopener noreferrer"
+               class="flex items-center justify-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 rounded-2xl transition-all shadow-lg no-underline w-full">
+              🌐 前往官網聽更多故事
+            </a>
+          </div>
+          <div class="w-full h-[400px] rounded-2xl overflow-hidden border-8 border-white shadow-2xl">
+            <iframe src="https://maps.google.com/maps?saddr=新北投捷運站&daddr=北投中心新村&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                    class="w-full h-full border-0" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MENU ── -->
+  <div id="tab-menu" class="tab-content min-h-[400px]">
+    <div class="space-y-8 fade-in">
+
+      <div class="bg-[#1b5e20] rounded-[2.5rem] p-10 text-white shadow-xl relative overflow-hidden">
+        <h2 class="text-4xl font-bold mb-4">銀光食驗室</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div class="space-y-6">
+            <p class="text-emerald-50 leading-relaxed font-light text-lg italic">「 品嚐一盤真正好食材做的料理 」</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] font-bold border border-white/10 flex items-center gap-1.5">✅ 動物福利食材</span>
+              <span class="bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] font-bold border border-white/10 flex items-center gap-1.5">✅ 土地友善農產</span>
+              <span class="bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] font-bold border border-white/10 flex items-center gap-1.5">✅ 非籠飼雞蛋</span>
+              <span class="bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] font-bold border border-white/10 flex items-center gap-1.5">✅ 現點現做</span>
+            </div>
+          </div>
+          <div class="h-64 rounded-3xl overflow-hidden border-4 border-white/20 shadow-2xl">
+            <img src="https://duk.tw/JaqrC5.png" alt="銀光食驗室" class="w-full h-full object-cover">
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <div class="bg-white rounded-3xl shadow-xl p-8 border border-stone-100">
+          <h3 class="text-emerald-800 font-bold text-xl flex items-center mb-8">🍽 精選菜單 MENU</h3>
+          <div class="space-y-6">
+            <div class="flex justify-between items-center pb-4 border-b border-stone-50">
+              <div>
+                <span class="font-bold text-gray-800 mr-2">照燒烤雞腿套餐</span>
+                <span class="bg-emerald-50 text-emerald-600 text-[9px] px-1.5 py-0.5 rounded font-black">人氣</span>
+              </div>
+              <span class="text-xs text-stone-400 italic">人氣首選・醬汁濃郁</span>
+            </div>
+            <div class="flex justify-between items-center pb-4 border-b border-stone-50">
+              <div><span class="font-bold text-gray-800">梅花豬排套餐</span></div>
+              <span class="text-xs text-stone-400 italic">台灣在地豬肉・低溫鎖汁</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="font-bold text-gray-800 mr-2">對味奶皇酥</span>
+                <span class="bg-emerald-50 text-emerald-600 text-[9px] px-1.5 py-0.5 rounded font-black">必點</span>
+              </div>
+              <span class="text-xs text-stone-400 italic">現烤限量・師承半島手法</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-3xl p-8 shadow-xl border border-stone-100">
+          <h3 class="text-emerald-800 font-bold text-xl flex items-center mb-4">🗺 導航指引</h3>
+          <div class="bg-stone-50 p-4 rounded-2xl mb-6 border-l-4 border-emerald-500">
+            <p class="text-xs text-gray-600 mb-1 font-bold">📍 目的地：</p>
+            <p class="text-sm font-bold text-gray-800">台北市北投區三合街一段119號1樓</p>
+          </div>
+          <div class="space-y-3">
+            <a href="https://www.google.com/maps/dir/奇岩捷運站/對味廚房銀光食驗室" target="_blank" rel="noopener noreferrer"
+               class="flex items-center justify-between p-4 bg-stone-50 rounded-2xl hover:bg-emerald-50 transition-all border border-transparent hover:border-emerald-100 no-underline text-gray-800 group">
+              <div>
+                <p class="text-sm font-bold">奇岩捷運站 (首選起點)</p>
+                <p class="text-[10px] text-stone-400 flex items-center mt-1">🕐 步行約 5-8 分</p>
+              </div>
+              <div class="bg-white p-2 rounded-full shadow-sm group-hover:bg-emerald-600 group-hover:text-white transition-all">→</div>
+            </a>
+            <a href="https://www.google.com/maps/dir/新北投捷運站/對味廚房銀光食驗室" target="_blank" rel="noopener noreferrer"
+               class="flex items-center justify-between p-4 bg-stone-50 rounded-2xl hover:bg-emerald-50 transition-all border border-transparent hover:border-emerald-100 no-underline text-gray-800 group">
+              <div>
+                <p class="text-sm font-bold">新北投捷運站</p>
+                <p class="text-[10px] text-stone-400 flex items-center mt-1">🕐 步行約 10-12 分</p>
+              </div>
+              <div class="bg-white p-2 rounded-full shadow-sm group-hover:bg-emerald-600 group-hover:text-white transition-all">→</div>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SPIRITUAL ── -->
+  <div id="tab-spiritual" class="tab-content min-h-[400px]">
+    <div class="fade-in">
+      <div class="text-center mb-10">
+        <div class="inline-block bg-rose-50 px-4 py-1 rounded-full text-rose-500 text-[10px] font-black mb-3 uppercase tracking-widest">Resonance</div>
+        <h2 class="text-3xl font-bold font-serif mb-3 text-gray-800">心靈輕旅行</h2>
+        <p class="text-gray-500 text-sm">過濾雜訊，找回生命諧波。</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <div class="bg-blue-50 border border-blue-100 p-8 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all duration-500 group">
+          <div class="bg-white w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-sm group-hover:rotate-12 transition-transform text-blue-500">
+            🎵
+          </div>
+          <h4 class="font-bold text-xl mb-1 text-gray-800">心靈共振</h4>
+          <p class="text-[10px] font-black uppercase text-gray-400 mb-4 tracking-widest">靈魂共鳴</p>
+          <p class="text-sm text-gray-500 leading-relaxed">在音樂中與神對話，找回內心諧波。</p>
+        </div>
+
+        <div class="bg-emerald-50 border border-emerald-100 p-8 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all duration-500 group">
+          <div class="bg-white w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-sm group-hover:rotate-12 transition-transform text-emerald-500">
+            💬
+          </div>
+          <h4 class="font-bold text-xl mb-1 text-gray-800">生命迴響</h4>
+          <p class="text-[10px] font-black uppercase text-gray-400 mb-4 tracking-widest">真實故事</p>
+          <p class="text-sm text-gray-500 leading-relaxed">生命分享與內心共鳴，跨越寂靜。</p>
+        </div>
+
+        <div class="bg-purple-50 border border-purple-100 p-8 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all duration-500 group">
+          <div class="bg-white w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-sm group-hover:rotate-12 transition-transform text-purple-500">
+            ☕
+          </div>
+          <h4 class="font-bold text-xl mb-1 text-gray-800">茶韻微語</h4>
+          <p class="text-[10px] font-black uppercase text-gray-400 mb-4 tracking-widest">深度思考</p>
+          <p class="text-sm text-gray-500 leading-relaxed">在茶香中觸動靈魂，過濾雜訊。</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ECO ── -->
+  <div id="tab-eco" class="tab-content min-h-[400px]">
+    <div class="fade-in">
+      <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
+        <div class="bg-emerald-50 px-8 py-16 text-center">
+          <div class="text-5xl mb-6">🌿</div>
+          <h2 class="text-4xl font-black text-emerald-800 mb-4">奇岩重劃區｜生態建築巡禮</h2>
+          <p class="text-emerald-600 font-medium italic">漫步奇岩，走入樹比人多的純淨頻率</p>
+        </div>
+        <div class="p-10 space-y-12">
+
+          <div class="relative h-[400px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white/20">
+            <img src="https://duk.tw/nxLVPv.png" alt="奇岩重劃區" class="w-full h-full object-cover">
+            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6 text-white">
+              <p class="text-sm font-bold flex items-center">📷 奇岩重劃區空拍實景</p>
+            </div>
+          </div>
+
+          <p class="text-gray-600 leading-relaxed text-center max-w-2xl mx-auto">
+            奇岩重劃區面積約 17 公頃，是台北市第 1 座以「生態社區」為概念的重劃區。綠覆率達 60%，限高 32 米，建蔽率僅 45%，確保了極佳的棟距、採光與環境音場。
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="flex gap-4 p-4 bg-stone-50 rounded-2xl border border-stone-100">
+              <div class="p-2 bg-white rounded-lg shadow-sm text-emerald-600">📐</div>
+              <div>
+                <p class="text-[10px] font-black uppercase text-gray-400">總面積</p>
+                <p class="text-xs font-bold text-gray-800">約 17 公頃</p>
+              </div>
+            </div>
+            <div class="flex gap-4 p-4 bg-stone-50 rounded-2xl border border-stone-100">
+              <div class="p-2 bg-white rounded-lg shadow-sm text-emerald-600">📍</div>
+              <div>
+                <p class="text-[10px] font-black uppercase text-gray-400">地理位置</p>
+                <p class="text-xs font-bold text-gray-800">北投奇岩里・鄰近磺港溪</p>
+              </div>
+            </div>
+            <div class="flex gap-4 p-4 bg-stone-50 rounded-2xl border border-stone-100">
+              <div class="p-2 bg-white rounded-lg shadow-sm text-emerald-600">🏔</div>
+              <div>
+                <p class="text-[10px] font-black uppercase text-gray-400">自然資源</p>
+                <p class="text-xs font-bold text-gray-800">東側鄰近軍艦岩系</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            <h3 class="text-2xl font-bold text-emerald-800 border-l-4 border-emerald-500 pl-4">核心特色</h3>
+            <div class="grid grid-cols-1 gap-4">
+              <div class="p-6 bg-white border border-stone-100 rounded-2xl shadow-sm hover:border-emerald-200 transition-colors">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-emerald-600">✅</span>
+                  <h4 class="font-bold text-gray-800">超高綠覆率純住環境</h4>
+                  <span class="ml-auto bg-emerald-50 text-emerald-700 text-[9px] px-2 py-0.5 rounded-full font-bold">生態首選</span>
+                </div>
+                <p class="text-sm text-gray-500 leading-relaxed">台北市首座生態社區。全區擁抱 5 座公園，結合磺港溪與濕地復育。</p>
+              </div>
+              <div class="p-6 bg-white border border-stone-100 rounded-2xl shadow-sm hover:border-emerald-200 transition-colors">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-emerald-600">✅</span>
+                  <h4 class="font-bold text-gray-800">低密度建築規劃</h4>
+                  <span class="ml-auto bg-emerald-50 text-emerald-700 text-[9px] px-2 py-0.5 rounded-full font-bold">低密純住</span>
+                </div>
+                <p class="text-sm text-gray-500 leading-relaxed">建築多在 10 樓以下，避免壓迫感。建蔽率約 45%，居住環境單純。</p>
+              </div>
+              <div class="p-6 bg-white border border-stone-100 rounded-2xl shadow-sm hover:border-emerald-200 transition-colors">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-emerald-600">✅</span>
+                  <h4 class="font-bold text-gray-800">離塵不離城交通</h4>
+                  <span class="ml-auto bg-emerald-50 text-emerald-700 text-[9px] px-2 py-0.5 rounded-full font-bold">黃金平衡</span>
+                </div>
+                <p class="text-sm text-gray-500 leading-relaxed">鄰近奇岩站與唭哩岸站，步行即可到達，兼具便捷與寧靜。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-8 border-t border-stone-100 text-center">
+            <div class="flex items-center gap-2 mb-8 justify-center">
+              <span class="text-red-600 text-2xl">▶</span>
+              <h3 class="text-xl font-bold">社區聲景紀實 Video</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div class="space-y-4">
+                <div class="aspect-video rounded-2xl overflow-hidden bg-black shadow-md">
+                  <iframe width="100%" height="100%" src="https://www.youtube.com/embed/aubzV9YQ7rs"
+                          title="磺港溪再造完工紀錄" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <h4 class="font-bold flex items-center gap-2 justify-center text-gray-800">▶ 磺港溪再造完工紀錄</h4>
+              </div>
+              <div class="space-y-4">
+                <div class="aspect-video rounded-2xl overflow-hidden bg-black shadow-md">
+                  <iframe width="100%" height="100%" src="https://www.youtube.com/embed/4-YS9PvqGw8"
+                          title="北投奇岩重劃區漫步" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <h4 class="font-bold flex items-center gap-2 justify-center text-gray-800">▶ 北投奇岩重劃區漫步</h4>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Guidelines -->
+  <section class="mt-20">
+    <div class="flex items-center justify-center space-x-6 mb-10">
+      <div class="h-px bg-stone-200 flex-1"></div>
+      <h2 class="text-[10px] font-black text-stone-400 uppercase tracking-[0.4em] whitespace-nowrap">探索必讀指南 / Guidelines</h2>
+      <div class="h-px bg-stone-200 flex-1"></div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div class="bg-emerald-50 p-6 rounded-3xl text-center border border-white/50 shadow-sm">
+        <div class="mb-4 flex justify-center text-emerald-600 text-2xl">👟</div>
+        <p class="font-bold text-gray-800 mb-1 text-sm">漫遊裝備</p>
+        <p class="text-[11px] text-gray-500 leading-relaxed">運動鞋，岩石地形易滑。</p>
+      </div>
+      <div class="bg-amber-50 p-6 rounded-3xl text-center border border-white/50 shadow-sm">
+        <div class="mb-4 flex justify-center text-amber-600 text-2xl">💧</div>
+        <p class="font-bold text-gray-800 mb-1 text-sm">飲水補給</p>
+        <p class="text-[11px] text-gray-500 leading-relaxed">自備 500ml 飲水。</p>
+      </div>
+      <div class="bg-rose-50 p-6 rounded-3xl text-center border border-white/50 shadow-sm">
+        <div class="mb-4 flex justify-center text-rose-600 text-2xl">☀️</div>
+        <p class="font-bold text-gray-800 mb-1 text-sm">防曬準備</p>
+        <p class="text-[11px] text-gray-500 leading-relaxed">防曬不可少。</p>
+      </div>
+      <div class="bg-blue-50 p-6 rounded-3xl text-center border border-white/50 shadow-sm">
+        <div class="mb-4 flex justify-center text-blue-600 text-2xl">🧭</div>
+        <p class="font-bold text-gray-800 mb-1 text-sm">導航地圖</p>
+        <p class="text-[11px] text-gray-500 leading-relaxed">建議下載離線地圖。</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ======= AI Chat Drawer ======= -->
+<div id="chat-drawer" class="chat-drawer fixed inset-0 z-[100] items-end justify-end p-4 pointer-events-none">
+  <div class="w-full sm:w-96 bg-white rounded-3xl shadow-2xl border border-stone-200 flex flex-col pointer-events-auto h-[550px] overflow-hidden">
+    <div class="p-4 flex items-center justify-between bg-emerald-600 text-white">
+      <div class="flex items-center gap-2 font-bold">✨ 漫遊小助手 AI</div>
+      <button onclick="closeChat()" class="hover:bg-white/20 p-1 rounded-lg">✕</button>
+    </div>
+    <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 text-sm bg-stone-50/50">
+      <div class="flex justify-start">
+        <div class="max-w-[85%] p-3 rounded-2xl shadow-sm bg-white border border-stone-100 rounded-tl-none text-gray-700">
+          您好！我是您的北投漫遊小助手。關於「放電大串連」路線或銀光食驗室的推薦菜單，都可以問我。✨
+        </div>
+      </div>
+    </div>
+    <div class="p-4 border-t border-stone-100 flex gap-2 bg-white">
+      <input id="chat-input" type="text" placeholder="詢問小助手..."
+             class="flex-1 bg-stone-100 border-none rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-800"
+             onkeypress="if(event.key==='Enter') sendChat()">
+      <button onclick="sendChat()" class="bg-emerald-600 text-white p-2 rounded-full hover:bg-emerald-700 transition-colors">
+        ➤
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Floating Chat Button -->
+<button id="chat-fab" onclick="openChat()"
+        class="fixed bottom-10 right-10 z-50 bg-emerald-600 text-white p-4 rounded-full shadow-2xl hover:bg-emerald-700 hover:scale-110 active:scale-95 transition-all flex items-center gap-2 group">
+  💬
+  <span class="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-500 whitespace-nowrap font-bold text-sm">詢問小助手</span>
+</button>
+
+<!-- ======= FOOTER ======= -->
+<footer class="bg-white py-20 text-center border-t border-stone-100">
+  <p class="text-emerald-600 font-serif italic text-xl mb-6">「 聽見生活的頻率，遇見心靈的風景 」</p>
+  <div class="flex items-center justify-center space-x-4 text-stone-300 text-[10px] font-semibold tracking-[0.1em]">
+    <span>EST. 2026.05.23</span><span>•</span><span>BEITOU EARLY SUMMER WALK</span>
+  </div>
+</footer>
+
+<script>
+// ── Tab switching ──
+const TABS = ['schedule','explore','menu','spiritual','eco'];
+
+function setTab(id) {
+  TABS.forEach(t => {
+    const el = document.getElementById('tab-' + t);
+    const btn = document.getElementById('tab-btn-' + t);
+    if (t === id) {
+      el.classList.add('active');
+      btn.classList.add('bg-white','text-emerald-600','shadow-md');
+      btn.classList.remove('text-gray-500');
+    } else {
+      el.classList.remove('active');
+      btn.classList.remove('bg-white','text-emerald-600','shadow-md');
+      btn.classList.add('text-gray-500');
+    }
+  });
+}
+
+// ── Sub-tab switching ──
+const SUB_TABS = ['kids','hiking','village'];
+
+function setSubTab(id) {
+  SUB_TABS.forEach(t => {
+    const el = document.getElementById('sub-' + t);
+    const btn = document.getElementById('sub-btn-' + t);
+    if (t === id) {
+      el.classList.add('active');
+      btn.classList.add('text-orange-600','border-orange-600');
+      btn.classList.remove('text-gray-400','border-transparent');
+    } else {
+      el.classList.remove('active');
+      btn.classList.remove('text-orange-600','border-orange-600');
+      btn.classList.add('text-gray-400','border-transparent');
+    }
+  });
+}
+
+// init tab states
+setTab('schedule');
+setSubTab('kids');
+
+// ── Chat ──
+function openChat() {
+  document.getElementById('chat-drawer').classList.add('open');
+  document.getElementById('chat-fab').style.display = 'none';
+}
+function closeChat() {
+  document.getElementById('chat-drawer').classList.remove('open');
+  document.getElementById('chat-fab').style.display = 'flex';
+}
+
+let chatTyping = false;
+
+async function sendChat() {
+  if (chatTyping) return;
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+
+  appendMsg('user', text);
+  chatTyping = true;
+
+  const typingEl = appendMsg('assistant', '⏳ 正在思考...');
+
+  try {
+    const systemPrompt = `你是北投初夏漫遊小助手。活動日期2026/5/23。親子路線(放電大串連)：新北投站->七虎->長安->奇岩一號公園->銀光食驗室。銀光食驗室主打照燒烤雞腿與奶皇酥。光陰的故事(眷村)地圖已規劃好。回答要親切專業。`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=`;
+    const payload = { contents: [{ parts: [{ text: `Context: ${systemPrompt}\nUser Question: ${text}` }] }] };
+    const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    const data = await res.json();
+    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || '抱歉，小助手暫時無法連線。';
+    typingEl.textContent = reply;
+  } catch(e) {
+    typingEl.textContent = '連線異常，請稍後再試。';
+  } finally {
+    chatTyping = false;
+  }
+}
+
+function appendMsg(role, text) {
+  const container = document.getElementById('chat-messages');
+  const wrapper = document.createElement('div');
+  wrapper.className = `flex ${role === 'user' ? 'justify-end' : 'justify-start'}`;
+  const bubble = document.createElement('div');
+  bubble.className = `max-w-[85%] p-3 rounded-2xl shadow-sm ${role === 'user'
+    ? 'bg-emerald-600 text-white rounded-tr-none'
+    : 'bg-white border border-stone-100 rounded-tl-none text-gray-700'}`;
+  bubble.textContent = text;
+  wrapper.appendChild(bubble);
+  container.appendChild(wrapper);
+  container.scrollTop = container.scrollHeight;
+  return bubble;
+}
+</script>
+</body>
+</html>
